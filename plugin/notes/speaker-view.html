@@ -499,6 +499,9 @@
 						else {
 							notesValue.innerHTML = data.notes;
 						}
+
+						// Scroll to top of notes when content changes
+						document.querySelector('#speaker-controls').scrollTop = 0;
 					}
 					else {
 						notes.classList.add( 'hidden' );
