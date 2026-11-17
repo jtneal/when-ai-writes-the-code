@@ -1,43 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-		/>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css" />
-		<link rel="stylesheet" href="dist/reveal.css" />
-		<link rel="stylesheet" href="dist/theme/black.css" />
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
 
-		<script src="dist/reveal.js"></script>
-		<script src="dist/plugin/notes.js"></script>
-		<script src="dist/plugin/markdown.js"></script>
-		<script src="dist/plugin/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <style>
+      :root {
+        --bg: #0b111c;
+        --ink: #f4f6f9;
+        --muted: #aab7c9;
+        --accent: #9bd9e7;
+        --border: #263446;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .reveal {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, "Aptos", "Segoe UI", sans-serif;
+      }
+      .reveal .slides section {
+        text-align: left;
+      }
+      .reveal .controls button,
+      .reveal .progress {
+        color: var(--accent);
+      }
+      .eyebrow {
+        color: var(--accent);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        margin-bottom: 48px;
+        text-transform: uppercase;
+      }
+      h1.hero {
+        font-size: 59px;
+        font-weight: 750;
+        letter-spacing: -0.052em;
+        line-height: 1.12;
+        text-transform: none;
+      }
+      .hero .accent {
+        color: var(--accent);
+      }
+      .hero .headline-line {
+        display: block;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 1.5;
+        margin-top: 36px !important;
+      }
+      .slide-footer {
+        border-top: 1px solid var(--border);
+        color: #74879e;
+        display: flex;
+        font-size: 15px;
+        justify-content: space-between;
+        letter-spacing: 0.04em;
+        padding-top: 18px;
+        margin-top: 96px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="eyebrow">OPENING</div>
+          <h1 class="hero">
+            <span class="headline-line">When AI writes the code,</span>
+            <span class="headline-line accent">what makes a good engineer?</span>
+          </h1>
+          <p class="subtitle">A question about craft, judgment, and the future of software engineering</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>I want to start with a question.</p>
+            <p>And it's one that I've been thinking about quite a bit lately.</p>
+            <p>
+              If AI can write code as well as, or sometimes better than, we can, what exactly makes someone a good
+              software engineer?
+            </p>
+            <p>Think about that for a second.</p>
+            <p>
+              For most of our careers, we've operated under a pretty straightforward assumption: becoming a better
+              engineer means becoming better at writing software.
+            </p>
+            <p>
+              We learn programming languages. We study design patterns. We learn how to write clean, maintainable code.
+              We get better at debugging, testing, and understanding increasingly complicated systems.
+            </p>
+            <p>Eventually, we become the people other engineers come to when they can't figure something out.</p>
+            <p>And then along comes AI.</p>
+            <p>
+              Now I can describe a problem to an AI agent, give it access to a repository, and watch it produce an
+              implementation that might have taken me hours.
+            </p>
+            <p>
+              It can write unit tests. It can refactor code. It can explain unfamiliar parts of the system. It can
+              identify code smells, suggest architectural improvements, and review pull requests.
+            </p>
+            <p>And it's getting better at these things.</p>
+            <p>
+              Now, obviously, the technology isn't perfect. It makes mistakes. Sometimes pretty spectacular ones.
+            </p>
+            <p>But I don't think we should build our understanding of AI around what it can't do today.</p>
+            <p>
+              Because the things it struggles with today might be the things it does exceptionally well a year from now.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">THE QUESTION</div>
+          <h1 class="hero">
+            <span class="headline-line">If implementation becomes cheap,</span>
+            <span class="headline-line accent">where does engineering value come from?</span>
+          </h1>
+          <p class="subtitle">Same tools. Same AI. Different experience.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>So here's a more interesting question.</p>
+            <p>Imagine two engineers.</p>
+            <p>One is a relatively new engineer, maybe six months into their career.</p>
+            <p>The other has fifteen years of experience.</p>
+            <p>They both have access to the same AI models, the same tools, and the same repository.</p>
+            <p>They receive the same feature request.</p>
+            <p>What makes the experienced engineer's contribution more valuable?</p>
+            <p>Is it that they know more syntax? Probably not.</p>
+            <p>Is it that they can write a for-loop faster? Definitely not.</p>
+            <p>Is it that they know more design patterns? Maybe, but the AI probably knows those patterns too.</p>
+            <p>I think the answer is more interesting than any of those things.</p>
+            <p>And I think it forces us to reconsider what we mean when we say someone is a good software engineer.</p>
+            <p>That's what I want to talk about today.</p>
+            <p>Not how to write better prompts.</p>
+            <p>Not which AI tool is the best.</p>
+            <p>But how the definition of good software engineering is changing, and what that means for all of us.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">CONTEXT</div>
+          <h1 class="hero">
+            <span class="headline-line">The tools have</span>
+            <span class="headline-line accent">always changed.</span>
+          </h1>
+          <p class="subtitle">AI changes the scope of what we can delegate.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>
+              If you've been writing software for a while, you've already experienced several major changes in
+              how we work.
+            </p>
+            <p>There was a time when developers had to manage memory manually.</p>
+            <p>Then languages and frameworks abstracted much of that away.</p>
+            <p>There was a time when we wrote enormous amounts of boilerplate code.</p>
+            <p>Then frameworks, generators, and libraries started doing that work for us.</p>
+            <p>
+              We used to spend hours searching documentation and Stack Overflow for answers that modern tools can
+              provide almost instantly.
+            </p>
+            <p>Every generation of development tools has removed some burden from engineers.</p>
+            <p>And generally, that's been a good thing.</p>
+            <p>But AI feels different.</p>
+            <p>Because previous tools mostly automated specific tasks.</p>
+            <p>
+              A framework might handle routing. An ORM might handle database access. A compiler might optimize our code.
+            </p>
+            <p>AI can participate in the reasoning that surrounds those tasks.</p>
+            <p>
+              It can look at a problem, propose a solution, implement it, test it, and potentially revise its own
+              approach.
+            </p>
+            <p>That's a pretty significant shift.</p>
+            <p>And I think it has created an interesting tension in our profession.</p>
+            <p>On one hand, we're more capable than we've ever been.</p>
+            <p>
+              A single engineer can accomplish things that previously required considerably more time or specialized
+              knowledge.
+            </p>
+            <p>On the other hand, we're starting to encounter a strange problem.</p>
+            <p>
+              It's becoming easier to produce code than it is to understand all the consequences of producing that
+              code.
+            </p>
+            <p>Think about how quickly an AI agent can generate a thousand lines of code.</p>
+            <p>Now think about how long it takes you to thoroughly understand those thousand lines.</p>
+            <p>To understand the assumptions.</p>
+            <p>The edge cases.</p>
+            <p>The dependencies.</p>
+            <p>The unintended consequences.</p>
+            <p>The ways the implementation might affect systems outside the immediate feature.</p>
+            <p>The generation might take minutes.</p>
+            <p>But understanding the system can still take hours.</p>
+            <p>
+              And if we're not careful, we'll start producing software faster than we can meaningfully
+              evaluate it.
+            </p>
+            <p>That's not necessarily a problem with the AI.</p>
+            <p>That's a problem with how we approach engineering.</p>
+            <p>And it brings me to an important distinction.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">CODE QUALITY</div>
+          <h1 class="hero">
+            <span class="headline-line">Well-written code.</span>
+            <span class="headline-line accent">The right solution.</span>
+          </h1>
+          <p class="subtitle">These are not necessarily the same thing.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>Code quality has always been something I've cared a lot about.</p>
+            <p>Readable code. Maintainable code. Good abstractions. Appropriate testing. Consistent patterns.</p>
+            <p>I believe those things matter.</p>
+            <p>And I still believe they matter just as much today.</p>
+            <p>But AI has made me think more carefully about something.</p>
+            <p>Good code and good engineering are not necessarily the same thing.</p>
+            <p>Let me give you an example.</p>
+            <p>Imagine we have a feature request to add some new functionality to an existing application.</p>
+            <p>We give an AI agent the request.</p>
+            <p>
+              It examines the repository, creates a service, adds an API endpoint, writes tests, and produces what
+              appears to be a very clean implementation.
+            </p>
+            <p>The code follows our conventions.</p>
+            <p>The tests pass.</p>
+            <p>The pull request looks great.</p>
+            <p>By most traditional code-quality measurements, it's good code.</p>
+            <p>But what if the feature shouldn't have been implemented that way at all?</p>
+            <p>What if the business requirement was misunderstood?</p>
+            <p>
+              What if we've introduced a second source of truth for data that's already managed somewhere
+              else?
+            </p>
+            <p>
+              What if the feature creates a new dependency between systems that were intentionally designed to be
+              independent?
+            </p>
+            <p>
+              What if there's an existing capability somewhere in the organization that already solves most of the
+              problem?
+            </p>
+            <p>The AI might have written excellent code.</p>
+            <p>But we still made a poor engineering decision.</p>
+            <p>And to be fair, this isn't a new problem.</p>
+            <p>Human engineers have been making these mistakes forever.</p>
+            <p>We've all seen beautifully written code that probably shouldn't exist.</p>
+            <p>We've all seen complicated abstractions built to solve relatively simple problems.</p>
+            <p>
+              And we've probably all implemented something exactly as requested, only to discover later that the
+              request itself was based on a misunderstanding.
+            </p>
+            <p>AI didn't create these problems.</p>
+            <p>AI just gives us the ability to make them faster, and potentially at a much larger scale.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">THE BETTER QUESTION</div>
+          <h1 class="hero">
+            <span class="headline-line">Does this change</span>
+            <span class="headline-line accent">make the system better?</span>
+          </h1>
+          <p class="subtitle">Go beyond reviewing isolated code.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>[Pause briefly.]</p>
+            <p>There's another side to this that I think is worth considering.</p>
+            <p>We sometimes treat code quality as if it exists independently of the system.</p>
+            <p>We look at a class or a function and ask whether it's clean, readable, or well structured.</p>
+            <p>Those are useful questions.</p>
+            <p>But software doesn't live in isolation.</p>
+            <p>An individually clean implementation can make an entire system harder to maintain.</p>
+            <p>An abstraction that makes one component simpler can make five other components more complicated.</p>
+            <p>
+              A perfectly reasonable dependency can become a major architectural problem when repeated across dozens of
+              applications.
+            </p>
+            <p>This is especially relevant in large codebases.</p>
+            <p>
+              A decision that seems insignificant in one application might become extremely expensive when that pattern
+              spreads across an organization.
+            </p>
+            <p>And that's where I think the conversation about code quality needs to evolve.</p>
+            <p>Instead of asking only:</p>
+            <p>&quot;Is this code good?&quot;</p>
+            <p>We need to ask:</p>
+            <p>&quot;Does this change make the system better?&quot;</p>
+            <p>Those are two very different questions.</p>
+            <p>And I would argue that the second one is becoming increasingly important.
+            </p>
+            <p>
+              Because if AI continues getting better at producing clean implementations, our ability to evaluate the
+              larger consequences becomes one of the most valuable things we bring to the process.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">JUDGMENT</div>
+          <h1 class="hero">
+            <span class="headline-line">Experience isn't just</span>
+            <span class="headline-line accent">knowing the solution.</span>
+          </h1>
+          <p class="subtitle">It's recognizing consequences before they happen.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>Let's go back to those two engineers.</p>
+            <p>The relatively new engineer and the engineer with fifteen years of experience.</p>
+            <p>Same request. Same AI. Same codebase.</p>
+            <p>
+              I want to be careful here, because I don't think experience automatically makes someone a better
+              engineer.
+            </p>
+            <p>We've all met very experienced developers who continue making the same mistakes.</p>
+            <p>And we've met relatively new engineers who demonstrate exceptional judgment.</p>
+            <p>
+              But meaningful experience should give us something that isn't easily captured by syntax knowledge or
+              familiarity with a framework.
+            </p>
+            <p>It gives us a collection of lessons about how software fails.</p>
+            <p>Think about your own career.</p>
+            <p>
+              How many times have you implemented something that seemed like a perfectly reasonable solution, only to
+              discover some unexpected consequence later?
+            </p>
+            <p>Maybe you introduced an abstraction that became impossible to maintain.</p>
+            <p>Maybe you designed a service boundary that turned out to be in the wrong place.</p>
+            <p>Maybe you optimized something that wasn't actually causing a performance problem.</p>
+            <p>
+              Maybe you implemented a workaround that was supposed to be temporary, and five years later it's still
+              there.
+            </p>
+            <p>Over time, those experiences change the way you approach problems.</p>
+            <p>You start recognizing situations before they become problems.</p>
+            <p>You start asking questions that you wouldn't have known to ask earlier in your career.</p>
+            <p>You become more skeptical of solutions that look too simple.</p>
+            <p>And sometimes, you become more skeptical of solutions that look too clever.</p>
+            <p>That's engineering judgment.</p>
+            <p>And it's something I think we need to talk about more.</p>
+            <p>Because good engineering judgment often doesn't show up in the code that gets written.</p>
+            <p>Sometimes it shows up in the code that never gets written.</p>
+            <p>The feature that didn't need to exist.</p>
+            <p>The abstraction we decided not to introduce.</p>
+            <p>The dependency we avoided.</p>
+            <p>The unnecessary complexity we removed from a proposed design.</p>
+            <p>
+              An experienced engineer might look at a request and realize that the best solution is a small change to an
+              existing capability.
+            </p>
+            <p>Someone else might build an entirely new system.</p>
+            <p>Both implementations might work.</p>
+            <p>Both might pass all their tests.</p>
+            <p>But one might leave the organization with significantly less complexity to maintain.</p>
+            <p>And that's an enormous difference.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">COST OF COMPLEXITY</div>
+          <h1 class="hero">
+            <span class="headline-line">The best engineering decision</span>
+            <span class="headline-line accent">might produce less code.</span>
+          </h1>
+          <p class="subtitle">Creating complexity is cheap. Owning it isn't.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>Now consider what happens when we introduce AI.</p>
+            <p>AI can make generating a new implementation incredibly easy.</p>
+            <p>Need a new service? Generate one.</p>
+            <p>Need a new abstraction? Generate one.</p>
+            <p>Need another layer to handle some special case? Generate one.</p>
+            <p>
+              The implementation cost becomes so low that we're potentially removing one of the natural barriers
+              that used to make us reconsider complexity.
+            </p>
+            <p>
+              Before AI, spending three days building something might have motivated us to ask whether there was a
+              simpler solution.
+            </p>
+            <p>
+              Now, if an agent can build it in twenty minutes, we might be more inclined to say, &quot;Why not?&quot;
+            </p>
+            <p>But here's the problem.</p>
+            <p>The cost of creating complexity and the cost of owning complexity are not the same.</p>
+            <p>Just because something was cheap to implement doesn't mean it's cheap to maintain.</p>
+            <p>Someone still has to understand it.</p>
+            <p>Someone still has to support it.</p>
+            <p>Someone still has to troubleshoot it when production behaves differently from our expectations.</p>
+            <p>And someone still has to modify it when the business requirements change.</p>
+            <p>That brings us back to what experience contributes.</p>
+            <p>A good engineer doesn't just know how to build things.</p>
+            <p>
+              They develop a sense for what deserves to be built, what should be reused, what should remain simple, and
+              what tradeoffs are worth making.
+            </p>
+            <p>AI can help us reason through all of those decisions.</p>
+            <p>
+              But we shouldn't confuse getting a convincing recommendation from an AI with having made a
+              well-informed engineering decision.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">UNDERSTANDING</div>
+          <h1 class="hero">
+            <span class="headline-line">Can you explain</span>
+            <span class="headline-line accent">the code you just shipped?</span>
+          </h1>
+          <p class="subtitle">Understanding is not the same as accepting an explanation.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>There's another aspect of AI-assisted development that I think deserves more attention.</p>
+            <p>And that's what happens to our understanding of the software we're building.</p>
+            <p>I want to describe a workflow that I suspect most of us have experienced in some form.</p>
+            <p>You have a task.</p>
+            <p>You give it to an AI agent.</p>
+            <p>The agent makes changes across several files.</p>
+            <p>You look through the diff.</p>
+            <p>Everything looks reasonable.</p>
+            <p>The tests pass.</p>
+            <p>Maybe another AI agent reviews the pull request and gives it a clean bill of health.</p>
+            <p>So you approve it, merge it, and move on.</p>
+            <p>And in many cases, that's probably fine.</p>
+            <p>But I think we need to ask ourselves something.</p>
+            <p>How deeply do we understand the changes we're shipping?</p>
+            <p>I'm not suggesting we need to personally write every line.</p>
+            <p>That would defeat a lot of the value of these tools.</p>
+            <p>
+              And I'm certainly not suggesting we need to spend hours manually verifying things that our automated
+              systems can verify reliably.
+            </p>
+            <p>
+              But there's a difference between understanding what a change does and understanding why it's the
+              right change.
+            </p>
+            <p>
+              There's also a difference between recognizing that code looks correct and being able to reason about
+              its behavior.
+            </p>
+            <p>
+              Imagine you're reviewing a pull request that modifies a part of the system you're not
+              particularly familiar with.
+            </p>
+            <p>The AI explains what it changed.</p>
+            <p>It explains why it changed it.</p>
+            <p>It even explains why the implementation is safe.</p>
+            <p>Everything sounds convincing.</p>
+            <p>But how do you know that explanation is correct?</p>
+            <p>
+              If the same AI that produced the implementation is also providing the justification, we need to consider
+              whether we're getting independent validation or simply a coherent explanation of its own assumptions.
+            </p>
+            <p>And this isn't exclusive to AI.</p>
+            <p>Human engineers can be confidently wrong too.</p>
+            <p>
+              But AI introduces an interesting challenge because its explanations can be extremely polished, even when
+              an underlying assumption is incorrect.
+            </p>
+            <p>We might find ourselves trusting the quality of the explanation more than the evidence supporting it.</p>
+            <p>[Pause.]</p>
+            <p>I think this matters particularly when it comes to developing engineers.</p>
+            <p>Traditionally, a lot of learning happened through implementation.</p>
+            <p>You struggled with a problem.</p>
+            <p>You tried something.</p>
+            <p>It didn't work.</p>
+            <p>You debugged it.</p>
+            <p>You learned why your original assumption was wrong.</p>
+            <p>And eventually, you developed an understanding that you didn't have before.</p>
+            <p>
+              Now, an AI agent can potentially get you from the requirement to a working solution without that struggle.
+            </p>
+            <p>Which sounds fantastic.</p>
+            <p>And often, it is.</p>
+            <p>
+              But we have to ask whether we're also removing some of the experiences that helped engineers develop
+              judgment in the first place.
+            </p>
+            <p>I'm not arguing that struggle is inherently valuable.</p>
+            <p>
+              There's no prize for spending six hours solving a problem that could have been solved in ten minutes.
+            </p>
+            <p>But getting the answer and understanding the answer are different accomplishments.</p>
+            <p>If we're using AI to accelerate our work, that's a tremendous advantage.</p>
+            <p>If we're using it to avoid developing an understanding of our systems, that's a risk.</p>
+            <p>And I think this is going to become an increasingly important question for engineering organizations.</p>
+            <p>How do we develop junior engineers when the tools can do much of the implementation for them?</p>
+            <p>How do we help intermediate engineers develop architectural judgment?</p>
+            <p>
+              And how do senior engineers continue sharpening their own skills instead of simply delegating more and
+              more reasoning to an agent?
+            </p>
+            <p>I don't think the answer is to use less AI.</p>
+            <p>I think the answer is to become much more intentional about what we're learning while we use it.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">WHAT CHANGES</div>
+          <h1 class="hero">
+            <span class="headline-line">From generating solutions</span>
+            <span class="headline-line accent">to engineering outcomes.</span>
+          </h1>
+          <p class="subtitle">Four shifts in how we work.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>So what does all of this mean in practice?</p>
+            <p>
+              I don't think we need to throw away the engineering principles we've spent years developing.
+            </p>
+            <p>And I don't think we need an entirely new definition of software quality.</p>
+            <p>But I do think we need to become more deliberate about a few things.</p>
+            <p>First, we need to spend more energy understanding the problem before we start generating solutions.</p>
+            <p>This is something we've always said is important.</p>
+            <p>
+              But now that implementation is so fast, the temptation to jump straight into building something is even
+              greater.
+            </p>
+            <p>
+              Instead of immediately asking AI to implement a feature, we should be asking whether we fully understand
+              the requirements.
+            </p>
+            <p>What problem are we actually trying to solve?</p>
+            <p>What assumptions are we making?</p>
+            <p>What systems does this affect?</p>
+            <p>What would make this solution successful beyond simply passing its tests?</p>
+            <p>We can absolutely use AI to help answer those questions.</p>
+            <p>In fact, I think that's one of the best uses of the technology.</p>
+            <p>
+              But the important point is that we don't skip the thinking just because implementation has become
+              easier.
+            </p>
+            <p>Second, we need to evaluate changes at the system level, not just the code level.</p>
+            <p>Our traditional code-quality practices remain important.</p>
+            <p>
+              But readable code with good test coverage isn't enough if the implementation introduces unnecessary
+              coupling or violates an important architectural boundary.
+            </p>
+            <p>When we're reviewing changes, we should be thinking about the effect on the system.</p>
+            <p>Not just whether the new code looks clean.</p>
+            <p>
+              And I think AI can help us with that too, especially when we give it meaningful context about our
+              architecture and constraints.
+            </p>
+            <p>Third, we need to get better at distinguishing evidence from confidence.</p>
+            <p>A confident explanation is not proof.</p>
+            <p>An AI-generated test suite is not automatically proof that we've tested the right behaviors.</p>
+            <p>And a successful build doesn't tell us whether we implemented the correct requirement.</p>
+            <p>We need validation that is appropriate for the risks of the change.</p>
+            <p>Sometimes that means more comprehensive tests.</p>
+            <p>Sometimes it means checking an architectural decision.</p>
+            <p>Sometimes it means confirming an assumption with another team or a business stakeholder.</p>
+            <p>
+              The important thing is knowing what we're actually trying to establish, and gathering evidence that
+              supports it.
+            </p>
+            <p>And finally, we need to protect the development of engineering judgment.</p>
+            <p>That applies to everyone, not just junior engineers.</p>
+            <p>We should be able to explain why a solution was chosen.</p>
+            <p>We should be able to discuss the alternatives.</p>
+            <p>We should understand the tradeoffs.</p>
+            <p>
+              And when something goes wrong, we should use that experience to improve how we approach similar problems
+              in the future.
+            </p>
+            <p>None of that requires us to stop using AI.</p>
+            <p>
+              It requires us to be thoughtful about which responsibilities we're delegating and which
+              responsibilities we're developing.
+            </p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">THE ANSWER</div>
+          <h1 class="hero">
+            <span class="headline-line">What makes</span>
+            <span class="headline-line accent">a good engineer?</span>
+          </h1>
+          <p class="subtitle">The responsibility for the outcome remains ours.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>So let's come back to the question we started with.</p>
+            <p>If AI can write the code, what makes someone a good software engineer?</p>
+            <p>I don't think the answer is simply that good engineers know how to use AI effectively.</p>
+            <p>That's certainly becoming an important skill.</p>
+            <p>But I think there's something more fundamental underneath it.</p>
+            <p>A good engineer understands the problem they're solving.</p>
+            <p>They recognize the constraints of the system they're working in.</p>
+            <p>
+              They can evaluate tradeoffs, challenge assumptions, and recognize when a solution introduces more
+              complexity than it removes.
+            </p>
+            <p>They care about what happens after the code is merged.</p>
+            <p>
+              They understand that software quality isn't just about whether an implementation works today, but
+              whether the system can continue evolving tomorrow.
+            </p>
+            <p>And importantly, they take responsibility for the outcome.</p>
+            <p>
+              Whether the code was written by hand, generated by an AI agent, or produced through some combination of
+              both.
+            </p>
+            <p>The responsibility doesn't disappear just because the implementation method changes.</p>
+          </aside>
+        </section>
+        <section>
+          <div class="eyebrow">CLOSING</div>
+          <h1 class="hero">
+            <span class="headline-line">The code is the output.</span>
+            <span class="headline-line accent">The engineering is in the decisions.</span>
+          </h1>
+          <p class="subtitle">The tools may change how we write code. Our judgment determines what we build.</p>
+          <div class="slide-footer">
+            <span>WHEN AI WRITES THE CODE</span>
+            <span>ENGINEERING · JUDGMENT · QUALITY</span>
+          </div>
+          <aside class="notes">
+            <p>I actually think this is a pretty exciting time to be an engineer.</p>
+            <p>Because we're gaining tools that can remove enormous amounts of tedious work.</p>
+            <p>
+              And that creates an opportunity to spend more time on the parts of engineering that have always mattered
+              but haven't always received enough attention.
+            </p>
+            <p>Understanding problems.</p>
+            <p>Designing systems.</p>
+            <p>Improving reliability.</p>
+            <p>Reducing unnecessary complexity.</p>
+            <p>And making better decisions.</p>
+            <p>But that opportunity isn't automatic.</p>
+            <p>
+              If all we do with AI is generate more code faster, we might become more productive at producing software
+              without necessarily becoming better at engineering it.
+            </p>
+            <p>So I'll leave you with one final thought.</p>
+            <p>AI is changing how we write code. But it doesn't change why good engineering matters.</p>
+            <p>Because at the end of the day, our value isn't measured by how much code we produce.</p>
+            <p>It's measured by the problems we solve, the decisions we make, and the systems we leave behind.</p>
+            <p>Thank you.</p>
+          </aside>
+        </section>
+      </div>
+    </div>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
-			});
-		</script>
-	</body>
+    <script src="dist/reveal.js"></script>
+    <script src="dist/plugin/notes.js"></script>
+    <script src="dist/plugin/markdown.js"></script>
+    <script src="dist/plugin/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>
