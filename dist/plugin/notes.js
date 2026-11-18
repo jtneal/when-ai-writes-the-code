@@ -401,6 +401,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
 
 				var notes,
 					notesValue,
+					lastNotesKey,
 					currentState,
 					currentSlide,
 					upcomingSlide,
@@ -547,22 +548,31 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
 					// applying the same state
 					currentState = JSON.stringify( data.state );
 
-					// No need for updating the notes in case of fragment changes
+					// The deck re-sends notes on every fragment change. Only re-render
+					// (and scroll back to the top) when the slide or its notes actually
+					// change, so stepping through fragments keeps the reader's place.
+					const notesKey = data.state.indexh + '/' + data.state.indexv + '|' + data.notes;
+
 					if ( data.notes ) {
 						notes.classList.remove( 'hidden' );
-						notesValue.style.whiteSpace = data.whitespace;
-						if( data.markdown ) {
-							notesValue.innerHTML = marked.parse( data.notes );
-						}
-						else {
-							notesValue.innerHTML = data.notes;
-						}
 
-						// Scroll to top of notes when content changes
-						document.querySelector('#speaker-controls').scrollTop = 0;
+						if ( notesKey !== lastNotesKey ) {
+							lastNotesKey = notesKey;
+							notesValue.style.whiteSpace = data.whitespace;
+							if( data.markdown ) {
+								notesValue.innerHTML = marked.parse( data.notes );
+							}
+							else {
+								notesValue.innerHTML = data.notes;
+							}
+
+							// Scroll to top of notes when the slide changes
+							document.querySelector('#speaker-controls').scrollTop = 0;
+						}
 					}
 					else {
 						notes.classList.add( 'hidden' );
+						lastNotesKey = null;
 					}
 
 					// Don't show lightboxes in the upcoming slide

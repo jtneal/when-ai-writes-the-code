@@ -23,6 +23,8 @@
         --muted: #aab7c9;
         --accent: #9bd9e7;
         --border: #263446;
+        /* Warning tint, used only for "strained" components on The Better Question */
+        --warn: #e8967a;
       }
       * {
         box-sizing: border-box;
@@ -48,7 +50,7 @@
         text-transform: uppercase;
       }
       h1.hero {
-        font-size: 59px;
+        font-size: 56px;
         font-weight: 750;
         letter-spacing: -0.052em;
         line-height: 1.12;
@@ -66,6 +68,8 @@
         font-weight: 400;
         line-height: 1.5;
         margin-top: 36px !important;
+        /* Always reserve two lines so the footer sits at the same spot on every slide */
+        min-height: 3em;
       }
       .slide-footer {
         border-top: 1px solid var(--border);
@@ -76,6 +80,503 @@
         letter-spacing: 0.04em;
         padding-top: 18px;
         margin-top: 96px;
+      }
+      .shift-circle {
+        align-items: center;
+        background: rgba(155, 217, 231, 0.07);
+        border: 1px solid rgba(155, 217, 231, 0.22);
+        border-radius: 50%;
+        display: flex;
+        /* One size and position for every slide's circle */
+        height: 360px;
+        justify-content: center;
+        position: absolute;
+        /* Right edge lines up with the end of the footer rule */
+        right: 0;
+        top: 50%;
+        transform: translateY(calc(-50% - 52px));
+        width: 360px;
+      }
+      /* Opening: presenter photo, name and title, centered where the circles sit on later slides */
+      .presenter {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 50%;
+        transform: translateY(calc(-50% - 52px));
+        width: 360px;
+      }
+      .reveal .presenter img.presenter-photo {
+        border: 1px solid rgba(155, 217, 231, 0.35);
+        border-radius: 50%;
+        /* Soft outer ring echoes the circles used on the other slides */
+        box-shadow: 0 0 0 10px rgba(155, 217, 231, 0.07);
+        height: 190px;
+        margin: 0 0 30px;
+        max-height: none;
+        max-width: none;
+        object-fit: cover;
+        width: 190px;
+      }
+      .presenter-name {
+        color: var(--ink);
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .presenter-title {
+        color: var(--accent);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        margin-top: 6px;
+      }
+      .reveal .shift-circle ol,
+      .reveal .shift-circle ul {
+        counter-reset: shift;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .reveal .shift-circle li {
+        align-items: baseline;
+        color: var(--ink);
+        counter-increment: shift;
+        display: flex;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.3;
+        margin: 14px 0;
+      }
+      .reveal .shift-circle li::before {
+        color: var(--accent);
+        content: counter(shift, decimal-leading-zero);
+        flex: none;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        width: 34px;
+      }
+      .reveal .shift-circle.steps li {
+        margin: 9px 0;
+      }
+      .reveal .shift-circle.checks li {
+        align-items: center;
+        margin: 12px 0;
+      }
+      .reveal .shift-circle.checks li::before {
+        align-items: center;
+        border: 1.5px solid var(--accent);
+        border-radius: 50%;
+        content: "\2713";
+        display: flex;
+        font-size: 12px;
+        height: 22px;
+        justify-content: center;
+        letter-spacing: 0;
+        margin-right: 14px;
+        /* Nudge the ✓ glyph down/left so it sits optically centered */
+        padding: 2px 2px 0 0;
+        width: 22px;
+      }
+      .reveal .shift-circle.checks li.unknown {
+        color: var(--accent);
+        font-weight: 600;
+        margin-top: 22px;
+      }
+      .reveal .shift-circle.checks li.unknown::before {
+        border-style: dashed;
+        content: "?";
+        padding: 2px 1px 0 0;
+      }
+      /* Ledger: one small "create" line vs. a growing "own" list */
+      .reveal .shift-circle .ledger-label {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .reveal .shift-circle .ledger-value {
+        color: var(--muted);
+        font-size: 18px;
+        margin-top: 4px;
+      }
+      .reveal .shift-circle .ledger-divider {
+        border-top: 1px solid rgba(155, 217, 231, 0.25);
+        margin: 16px 0 14px;
+      }
+      .reveal .shift-circle.ledger li {
+        align-items: center;
+        margin: 8px 0;
+      }
+      .reveal .shift-circle.ledger li::before {
+        background: var(--accent);
+        border-radius: 50%;
+        content: "";
+        height: 7px;
+        margin-right: 14px;
+        width: 7px;
+      }
+      .reveal .shift-circle .ledger-forever {
+        color: var(--accent);
+        font-size: 20px;
+        font-style: italic;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+      /* Consequences: cause → what it turned into */
+      .consequence-row {
+        align-items: baseline;
+        column-gap: 10px;
+        display: grid;
+        grid-template-columns: 132px 16px auto;
+        margin: 12px 0;
+      }
+      .reveal .shift-circle .consequence-row span {
+        font-size: 16px;
+        line-height: 1.3;
+      }
+      .reveal .shift-circle .consequence-head {
+        margin: 0;
+      }
+      .reveal .shift-circle .consequence-head span {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .consequence-rule {
+        border-top: 1px solid rgba(155, 217, 231, 0.25);
+        margin: 10px 0 4px;
+      }
+      .reveal .shift-circle .consequence-row .cause {
+        color: var(--muted);
+      }
+      .reveal .shift-circle .consequence-row .arrow {
+        color: var(--muted);
+        opacity: 0.6;
+      }
+      .reveal .shift-circle .consequence-row .effect {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      /* The Better Question: one clean change, zoomed out to the system */
+      .system-map {
+        height: 100%;
+        overflow: visible;
+        width: 100%;
+      }
+      .system-map .sys-core {
+        fill: var(--accent);
+      }
+      .system-map .sys-check {
+        fill: none;
+        stroke: var(--bg);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3;
+      }
+      .system-map .sys-edges line {
+        stroke: var(--warn);
+        stroke-opacity: 0.45;
+        stroke-width: 1.5;
+      }
+      .system-map .sys-strained circle {
+        /* Solid (coral tint over the circle background) so edges don't show through */
+        fill: #333035;
+        stroke: var(--warn);
+        stroke-dasharray: 3 3;
+        stroke-width: 1.5;
+      }
+      .system-map .sys-main {
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: transform 0.8s ease-in-out;
+      }
+      /* Step 3 zooms the original cluster down to match its copies */
+      .system-map:has(.sys-copies.visible) .sys-main {
+        transform: scale(0.4);
+      }
+      .system-map .sys-caption text {
+        fill: var(--ink);
+        font-size: 15px;
+        font-weight: 500;
+        text-anchor: middle;
+      }
+      .system-map .sys-caption text.sys-caption-warn {
+        fill: var(--warn);
+      }
+      /* Step 3 swaps the "five harder" caption for the "dozens" one */
+      .reveal .slides section .system-map:has(.sys-copies.visible) .sys-caption-warn {
+        opacity: 0;
+      }
+      .system-map .sys-caption text.sys-caption-swap {
+        fill: var(--warn);
+      }
+      /* Code Quality: well-written code vs. the right solution */
+      .venn {
+        height: 100%;
+        overflow: visible;
+        width: 100%;
+      }
+      .venn text {
+        font-size: 15px;
+        font-weight: 500;
+        text-anchor: middle;
+      }
+      .venn .venn-code circle {
+        fill: rgba(170, 183, 201, 0.07);
+        stroke: var(--muted);
+        stroke-opacity: 0.6;
+        stroke-width: 1.5;
+      }
+      .venn .venn-code text {
+        fill: var(--muted);
+        font-size: 14px;
+      }
+      .venn .venn-right circle {
+        fill: rgba(155, 217, 231, 0.1);
+        stroke: var(--accent);
+        stroke-width: 1.5;
+      }
+      .venn .venn-right text {
+        fill: var(--accent);
+        font-size: 14px;
+      }
+      .venn .venn-both text {
+        fill: var(--ink);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      /* The second circle slides in from the right */
+      .reveal .slides section .venn .venn-right.fragment {
+        transform: translateX(28px);
+        transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s;
+      }
+      .reveal .slides section .venn .venn-right.fragment.visible {
+        transform: none;
+      }
+      /* Context: the scope of what we delegate widens with each era */
+      .scope-rings {
+        height: 100%;
+        overflow: visible;
+        width: 100%;
+      }
+      .scope-rings .scope-ring circle {
+        fill: rgba(170, 183, 201, 0.05);
+        stroke: var(--muted);
+        stroke-opacity: 0.45;
+        stroke-width: 1.5;
+      }
+      .scope-rings .scope-ring text {
+        fill: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-anchor: middle;
+      }
+      .scope-rings .scope-ai circle {
+        fill: rgba(155, 217, 231, 0.07);
+        stroke: var(--accent);
+        stroke-opacity: 1;
+        stroke-width: 2;
+      }
+      .scope-rings .scope-ai text {
+        fill: var(--accent);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+      /* Rings grow outward into place */
+      .reveal .slides section .scope-rings .scope-ring.fragment {
+        transform: scale(0.85);
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s;
+      }
+      .reveal .slides section .scope-rings .scope-ring.fragment.visible {
+        transform: none;
+      }
+      .steps-track {
+        position: relative;
+      }
+      /* Bracket that draws from step 1 down to step 6 */
+      .reveal .shift-circle .shortcut {
+        border: 2px solid var(--accent);
+        border-radius: 12px 0 0 12px;
+        border-right: none;
+        bottom: 21px;
+        left: -26px;
+        position: absolute;
+        top: 21px;
+        width: 14px;
+      }
+      .reveal .shift-circle .shortcut::after {
+        border-bottom: 5px solid transparent;
+        border-left: 8px solid var(--accent);
+        border-top: 5px solid transparent;
+        bottom: -6px;
+        content: "";
+        position: absolute;
+        right: -8px;
+      }
+      .reveal .slides section .shift-circle .shortcut.fragment {
+        clip-path: inset(-12px -12px 100% -12px);
+        opacity: 1;
+        transition: clip-path 0.9s ease-in-out, visibility 0s;
+      }
+      .reveal .slides section .shift-circle .shortcut.fragment.visible {
+        clip-path: inset(-12px);
+      }
+      /* When the shortcut appears, the middle steps fall away */
+      .reveal .shift-circle .steps-track:has(.shortcut.visible) li.skip.visible {
+        opacity: 0.22;
+      }
+      /* What Changes: each shift flips from the old focus to the new one */
+      .flip-row {
+        align-items: baseline;
+        column-gap: 12px;
+        display: grid;
+        grid-template-columns: 104px 18px auto;
+        margin: 16px 0;
+      }
+      .reveal .shift-circle .flip-row span {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+      .reveal .shift-circle .flip-row .from {
+        color: var(--ink);
+        /* Shrink to the word so the strike line matches its width */
+        justify-self: start;
+        position: relative;
+        transition: color 0.4s ease 0.5s;
+      }
+      .reveal .shift-circle .flip-row .from::after {
+        background: var(--muted);
+        content: "";
+        height: 1.5px;
+        left: 0;
+        position: absolute;
+        top: 55%;
+        transition: width 0.35s ease 0.3s;
+        width: 0;
+      }
+      .reveal .shift-circle .flip-row .arrow,
+      .reveal .shift-circle .flip-row .to {
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.4s ease 0.8s, transform 0.4s ease 0.8s;
+      }
+      .reveal .shift-circle .flip-row .arrow {
+        color: var(--muted);
+      }
+      .reveal .shift-circle .flip-row .to {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .reveal .shift-circle .flip-row.visible .from {
+        color: var(--muted);
+      }
+      .reveal .shift-circle .flip-row.visible .from::after {
+        width: 100%;
+      }
+      .reveal .shift-circle .flip-row.visible .arrow {
+        opacity: 0.6;
+        transform: none;
+      }
+      .reveal .shift-circle .flip-row.visible .to {
+        opacity: 1;
+        transform: none;
+      }
+      /* The Answer: five traits around a hub */
+      .wheel,
+      .time-bar {
+        height: 100%;
+        overflow: visible;
+        width: 100%;
+      }
+      .wheel text {
+        fill: var(--ink);
+        font-size: 14px;
+        font-weight: 500;
+        text-anchor: middle;
+      }
+      .wheel .wheel-trait text.verb {
+        fill: var(--muted);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .wheel .wheel-hub circle {
+        fill: rgba(155, 217, 231, 0.14);
+        stroke: var(--accent);
+        stroke-width: 2;
+      }
+      .wheel .wheel-hub text {
+        fill: var(--accent);
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .wheel .wheel-spokes line {
+        stroke: var(--accent);
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        stroke-opacity: 0.6;
+        stroke-width: 1.5;
+        transition: stroke-dashoffset 0.6s ease 0.3s;
+      }
+      .wheel .wheel-hub.visible .wheel-spokes line {
+        stroke-dashoffset: 0;
+      }
+      .reveal .slides section .wheel .wheel-hub.fragment circle {
+        transform: scale(0.6);
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: transform 0.5s ease;
+      }
+      .reveal .slides section .wheel .wheel-hub.fragment.visible circle {
+        transform: none;
+      }
+      /* Closing: "writing code" shrinks and freed time fills with engineering */
+      .time-bar text {
+        fill: var(--ink);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .time-bar .time-code rect {
+        fill: var(--muted);
+        fill-opacity: 0.35;
+        transform-box: fill-box;
+        transform-origin: bottom;
+        transition: transform 0.8s ease-in-out;
+      }
+      .time-bar .time-code text {
+        fill: var(--muted);
+        transition: transform 0.8s ease-in-out;
+      }
+      .time-bar:has(.time-shrink.visible) .time-code rect {
+        transform: scaleY(0.1667);
+      }
+      .time-bar:has(.time-shrink.visible) .time-code text {
+        transform: translateY(101.7px);
+      }
+      .time-bar .time-seg rect {
+        fill: var(--accent);
+      }
+      .reveal .slides section .time-bar .time-seg.fragment rect {
+        transform: scaleY(0);
+        transform-box: fill-box;
+        transform-origin: bottom;
+        transition: transform 0.5s ease;
+      }
+      .reveal .slides section .time-bar .time-seg.fragment.visible rect {
+        transform: none;
       }
     </style>
   </head>
@@ -88,7 +589,12 @@
             <span class="headline-line">When AI writes the code,</span>
             <span class="headline-line accent">what makes a good engineer?</span>
           </h1>
-          <p class="subtitle">A question about craft, judgment, and the future of software engineering</p>
+          <p class="subtitle">A question about craft, judgment,<br />and the future of software engineering</p>
+          <div class="presenter">
+            <img class="presenter-photo" src="assets/jason-neal.jpg" alt="Jason Neal" />
+            <div class="presenter-name">Jason Neal</div>
+            <div class="presenter-title">Staff Software Engineer</div>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -132,6 +638,7 @@
             <p>
               Because the things it struggles with today might be the things it does exceptionally well a year from now.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [1] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
         <section>
@@ -162,15 +669,37 @@
             <p>Not how to write better prompts.</p>
             <p>Not which AI tool is the best.</p>
             <p>But how the definition of good software engineering is changing, and what that means for all of us.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [2] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="context">
           <div class="eyebrow">CONTEXT</div>
           <h1 class="hero">
             <span class="headline-line">The tools have</span>
             <span class="headline-line accent">always changed.</span>
           </h1>
           <p class="subtitle">AI changes the scope of what we can delegate.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <!-- Each era hands off a wider ring of work; drawn outermost first so inner rings sit on top -->
+            <svg class="scope-rings" viewBox="0 0 360 360" aria-hidden="true">
+              <g class="scope-ring scope-ai fragment" data-fragment-index="3">
+                <circle cx="180" cy="180" r="156" />
+                <text x="180" y="53">The thinking</text>
+              </g>
+              <g class="scope-ring fragment" data-fragment-index="2">
+                <circle cx="180" cy="180" r="116" />
+                <text x="180" y="90">Looking things up</text>
+              </g>
+              <g class="scope-ring fragment" data-fragment-index="1">
+                <circle cx="180" cy="180" r="82" />
+                <text x="180" y="121">Boilerplate</text>
+              </g>
+              <g class="scope-ring fragment" data-fragment-index="0">
+                <circle cx="180" cy="180" r="48" />
+                <text x="180" y="185">Memory</text>
+              </g>
+            </svg>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -181,10 +710,13 @@
               If you've been writing software for a while, you've already lived through several major changes in
               how we work.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>There was a time when developers had to manage memory manually.</p>
             <p>Then languages and frameworks abstracted much of that away.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>There was a time when we wrote enormous amounts of boilerplate code.</p>
             <p>Then frameworks, generators, and libraries started doing that work for us.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>
               We used to spend hours searching documentation and Stack Overflow for answers that modern tools can
               provide almost instantly.
@@ -197,6 +729,7 @@
               A framework might handle routing. An ORM might handle database access. A compiler might optimize our code.
             </p>
             <p>AI can participate in the reasoning that surrounds those tasks.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>For the first time, we're not just delegating tasks. We're delegating some of the thinking.</p>
             <p>
               It can look at a problem, propose a solution, implement it, test it, and potentially revise its own
@@ -230,25 +763,49 @@
             <p>That's not necessarily a problem with the AI.</p>
             <p>That's a problem with how we approach engineering.</p>
             <p>And it brings me to an important distinction.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [3] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="code-quality">
           <div class="eyebrow">CODE QUALITY</div>
           <h1 class="hero">
             <span class="headline-line">Well-written code.</span>
             <span class="headline-line accent">The right solution.</span>
           </h1>
           <p class="subtitle">These are not necessarily the same thing.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <svg class="venn" viewBox="0 0 360 360" aria-hidden="true">
+              <!-- Step 1: well-written code -->
+              <g class="venn-code">
+                <circle cx="130" cy="180" r="100" />
+                <text x="84" y="176">Well-written</text>
+                <text x="84" y="193">code</text>
+              </g>
+              <!-- Step 2: the right solution only partly overlaps it -->
+              <g class="venn-right fragment" data-fragment-index="1">
+                <circle cx="230" cy="180" r="100" />
+                <text x="276" y="176">Right</text>
+                <text x="276" y="193">solution</text>
+              </g>
+              <!-- Step 3: the overlap is good engineering -->
+              <g class="venn-both fragment" data-fragment-index="2">
+                <text x="180" y="177">good</text>
+                <text x="180" y="193">engineering</text>
+              </g>
+            </svg>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
           </div>
           <aside class="notes">
             <p>Code quality has always been something I've cared a lot about.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>Readable code. Maintainable code. Good abstractions. Appropriate testing. Consistent patterns.</p>
             <p>I believe those things matter.</p>
             <p>And AI hasn't changed that.</p>
             <p>But AI has made me think more carefully about something.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Good code and good engineering are not necessarily the same thing.</p>
             <p>Let me give you an example.</p>
             <p>Imagine we have a feature request to add some new functionality to an existing application.</p>
@@ -275,6 +832,7 @@
               What if there's an existing capability somewhere in the organization that already solves most of the
               problem?
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>The AI might have written excellent code.</p>
             <p>But we still made a poor engineering decision.</p>
             <p>And to be fair, this isn't a new problem.</p>
@@ -287,15 +845,52 @@
             </p>
             <p>AI didn't create these problems.</p>
             <p>AI just lets us make them faster, and potentially at a much larger scale.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [4] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="better-question">
           <div class="eyebrow">THE BETTER QUESTION</div>
           <h1 class="hero">
             <span class="headline-line">Does this change</span>
             <span class="headline-line accent">make the system better?</span>
           </h1>
           <p class="subtitle">Go beyond reviewing isolated code.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <svg class="system-map" viewBox="0 0 360 360" aria-hidden="true">
+              <defs>
+                <g id="sys-mini">
+                  <g style="stroke: var(--warn); stroke-opacity: 0.45; stroke-width: 1.5"><line x1="0" y1="0" x2="0" y2="-78" /><line x1="0" y1="0" x2="74.2" y2="-24.1" /><line x1="0" y1="0" x2="45.8" y2="63.1" /><line x1="0" y1="0" x2="-45.8" y2="63.1" /><line x1="0" y1="0" x2="-74.2" y2="-24.1" /></g>
+                  <g style="fill: #333035; stroke: var(--warn); stroke-dasharray: 3 3; stroke-width: 1.5"><circle cx="0" cy="-78" r="11" /><circle cx="74.2" cy="-24.1" r="11" /><circle cx="45.8" cy="63.1" r="11" /><circle cx="-45.8" cy="63.1" r="11" /><circle cx="-74.2" cy="-24.1" r="11" /></g>
+                  <circle r="16" style="fill: var(--accent)" />
+                </g>
+              </defs>
+              <g transform="translate(180 160)">
+                <g class="sys-main">
+                  <rect x="-90" y="-90" width="180" height="180" fill="none" />
+                  <!-- Step 2: the five components this "clean" change made harder -->
+                  <g class="fragment" data-fragment-index="1">
+                    <g class="sys-edges"><line x1="0" y1="0" x2="0" y2="-78" /><line x1="0" y1="0" x2="74.2" y2="-24.1" /><line x1="0" y1="0" x2="45.8" y2="63.1" /><line x1="0" y1="0" x2="-45.8" y2="63.1" /><line x1="0" y1="0" x2="-74.2" y2="-24.1" /></g>
+                    <g class="sys-strained"><circle cx="0" cy="-78" r="11" /><circle cx="74.2" cy="-24.1" r="11" /><circle cx="45.8" cy="63.1" r="11" /><circle cx="-45.8" cy="63.1" r="11" /><circle cx="-74.2" cy="-24.1" r="11" /></g>
+                  </g>
+                  <circle class="sys-core" r="16" />
+                  <path class="sys-check" d="M -6 0 L -1.5 5 L 7 -5" />
+                </g>
+              </g>
+              <!-- Step 3: the same pattern repeated across the organization -->
+              <g class="sys-copies fragment" data-fragment-index="2">
+                  <use href="#sys-mini" transform="translate(180 60) scale(0.4)" />
+                  <use href="#sys-mini" transform="translate(266.6 110) scale(0.4)" />
+                  <use href="#sys-mini" transform="translate(266.6 210) scale(0.4)" />
+                  <use href="#sys-mini" transform="translate(93.4 210) scale(0.4)" />
+                  <use href="#sys-mini" transform="translate(93.4 110) scale(0.4)" />
+              </g>
+              <g class="sys-caption">
+                <text class="fragment fade-out" data-fragment-index="1" x="180" y="295">Is this code good? &#10003;</text>
+                <text class="fragment sys-caption-warn" data-fragment-index="1" x="180" y="295">One simpler. Five harder.</text>
+                <text class="fragment sys-caption-swap" data-fragment-index="2" x="180" y="295">Now repeat it across dozens of apps.</text>
+              </g>
+            </svg>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -303,11 +898,14 @@
           <aside class="notes">
             <p>There's another side to this that I think is worth considering.</p>
             <p>We sometimes treat code quality as if it exists independently of the system.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>We look at a class or a function and ask whether it's clean, readable, or well structured.</p>
             <p>Those are useful questions.</p>
             <p>But software doesn't live in isolation.</p>
             <p>An individually clean implementation can make an entire system harder to maintain.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>An abstraction that makes one component simpler can make five other components more complicated.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>
               A perfectly reasonable dependency can become a major architectural problem when repeated across dozens of
               applications.
@@ -328,15 +926,36 @@
               Because if AI continues getting better at producing clean implementations, our ability to evaluate the
               larger consequences becomes one of the most valuable things we bring to the process.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [5] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="judgment">
           <div class="eyebrow">JUDGMENT</div>
           <h1 class="hero">
             <span class="headline-line">Experience isn't just</span>
             <span class="headline-line accent">knowing the solution.</span>
           </h1>
           <p class="subtitle">It's recognizing consequences before they happen.</p>
+          <div class="shift-circle consequences fragment" data-fragment-index="0">
+            <div class="consequence-grid">
+              <div class="consequence-row consequence-head">
+                <span>Seemed fine</span><span></span><span>Later</span>
+              </div>
+              <div class="consequence-rule"></div>
+              <div class="consequence-row fragment" data-fragment-index="0">
+                <span class="cause">New abstraction</span><span class="arrow">&rarr;</span><span class="effect">Unmaintainable</span>
+              </div>
+              <div class="consequence-row fragment" data-fragment-index="1">
+                <span class="cause">Service boundary</span><span class="arrow">&rarr;</span><span class="effect">Wrong place</span>
+              </div>
+              <div class="consequence-row fragment" data-fragment-index="2">
+                <span class="cause">Optimization</span><span class="arrow">&rarr;</span><span class="effect">Wrong problem</span>
+              </div>
+              <div class="consequence-row fragment" data-fragment-index="3">
+                <span class="cause">&ldquo;Temporary&rdquo; fix</span><span class="arrow">&rarr;</span><span class="effect">5 years later</span>
+              </div>
+            </div>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -361,9 +980,13 @@
               How many times have you implemented something that seemed like a perfectly reasonable solution, only to
               discover some unexpected consequence later?
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>Maybe you introduced an abstraction that became impossible to maintain.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Maybe you designed a service boundary that turned out to be in the wrong place.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>Maybe you optimized something that wasn't actually causing a performance problem.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>
               Maybe you implemented a workaround that was supposed to be temporary, and five years later it's still
               there.
@@ -390,15 +1013,31 @@
             <p>Both might pass all their tests.</p>
             <p>But one might leave the organization with significantly less complexity to maintain.</p>
             <p>And that's an enormous difference.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [6] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="cost-of-complexity">
           <div class="eyebrow">COST OF COMPLEXITY</div>
           <h1 class="hero">
-            <span class="headline-line">The best engineering decision</span>
+            <span class="headline-line">The best decision</span>
             <span class="headline-line accent">often produces less code.</span>
           </h1>
-          <p class="subtitle">Creating complexity is cheap. Owning it isn't.</p>
+          <p class="subtitle">Creating complexity is cheap.<br />Owning it isn't.</p>
+          <div class="shift-circle ledger fragment" data-fragment-index="0">
+            <div class="ledger-body">
+              <div class="ledger-label">Cost to create</div>
+              <div class="ledger-value">~20 minutes</div>
+              <div class="ledger-divider"></div>
+              <div class="ledger-label">Cost to own</div>
+              <ul>
+                <li class="fragment" data-fragment-index="1">Understand it</li>
+                <li class="fragment" data-fragment-index="2">Support it</li>
+                <li class="fragment" data-fragment-index="3">Troubleshoot it</li>
+                <li class="fragment" data-fragment-index="4">Change it</li>
+              </ul>
+              <div class="ledger-forever fragment" data-fragment-index="5">&hellip;forever</div>
+            </div>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -417,16 +1056,22 @@
               Before AI, spending three days building something might have motivated us to ask whether there was a
               simpler solution.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>
               Now, if an agent can build it in twenty minutes, we might be more inclined to say, &quot;Why not?&quot;
             </p>
             <p>But here's the problem.</p>
             <p>The cost of creating complexity and the cost of owning complexity are not the same.</p>
             <p>Just because something was cheap to implement doesn't mean it's cheap to maintain.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Someone still has to understand it.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>Someone still has to support it.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>Someone still has to troubleshoot it when production behaves differently from our expectations.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>And someone still has to modify it when the business requirements change.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>That's why the best solution is so often the one with less code.</p>
             <p>
               And to be clear, I don't mean clever code crammed onto one line with single-letter variable names. That's
@@ -444,15 +1089,26 @@
               But we shouldn't confuse getting a convincing recommendation from an AI with having made a
               well-informed engineering decision.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [7] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="understanding">
           <div class="eyebrow">UNDERSTANDING</div>
           <h1 class="hero">
             <span class="headline-line">Can you explain</span>
             <span class="headline-line accent">the code you just shipped?</span>
           </h1>
-          <p class="subtitle">Understanding is not the same as accepting an explanation.</p>
+          <p class="subtitle">Understanding is not the same as<br />accepting an explanation.</p>
+          <div class="shift-circle checks fragment" data-fragment-index="0">
+            <ul>
+              <li class="fragment" data-fragment-index="0">Diff looks reasonable</li>
+              <li class="fragment" data-fragment-index="1">Tests pass</li>
+              <li class="fragment" data-fragment-index="2">AI review approved</li>
+              <li class="fragment" data-fragment-index="3">Merged</li>
+              <!-- The one gate none of the others covers -->
+              <li class="fragment unknown" data-fragment-index="4">Can you explain it?</li>
+            </ul>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -464,13 +1120,18 @@
             <p>You have a task.</p>
             <p>You give it to an AI agent.</p>
             <p>The agent makes changes across several files.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>You look through the diff.</p>
             <p>Everything looks reasonable.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>The tests pass.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>Maybe another AI agent reviews the pull request and gives it a clean bill of health.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>So you approve it, merge it, and move on.</p>
             <p>And in many cases, that's probably fine.</p>
             <p>But I think we need to ask ourselves something.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>How deeply do we understand the changes we're shipping?</p>
             <p>I'm not suggesting we need to personally write every line.</p>
             <p>That would defeat a lot of the value of these tools.</p>
@@ -506,15 +1167,30 @@
               an underlying assumption is incorrect.
             </p>
             <p>We might find ourselves trusting the quality of the explanation more than the evidence supporting it.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [8] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="growth">
           <div class="eyebrow">GROWTH</div>
           <h1 class="hero">
             <span class="headline-line">Getting the answer isn't</span>
             <span class="headline-line accent">understanding the answer.</span>
           </h1>
           <p class="subtitle">Use AI to accelerate learning, not to skip it.</p>
+          <div class="shift-circle steps fragment" data-fragment-index="0">
+            <div class="steps-track">
+            <ol>
+              <li class="fragment" data-fragment-index="0">Struggle with a problem</li>
+              <li class="fragment skip" data-fragment-index="1">Try something</li>
+              <li class="fragment skip" data-fragment-index="2">It doesn't work</li>
+              <li class="fragment skip" data-fragment-index="3">Debug it</li>
+              <li class="fragment skip" data-fragment-index="4">Learn why you were wrong</li>
+              <li class="fragment" data-fragment-index="5">Build understanding</li>
+            </ol>
+            <!-- Final step: the AI shortcut from problem straight to "understanding" -->
+            <div class="shortcut fragment" data-fragment-index="6"></div>
+            </div>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -522,12 +1198,19 @@
           <aside class="notes">
             <p>And this matters even more when we think about how engineers grow.</p>
             <p>Traditionally, a lot of learning happened through implementation.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>You struggled with a problem.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>You tried something.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>It didn't work.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>You debugged it.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>You learned why your original assumption was wrong.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>And eventually, you developed an understanding that you didn't have before.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [6] }), '*'); return false;">[Advance]</a></p>
             <p>
               Now, an AI agent can potentially get you from the requirement to a working solution without that struggle.
             </p>
@@ -553,15 +1236,33 @@
             </p>
             <p>I don't think the answer is to use less AI.</p>
             <p>I think the answer is to become much more intentional about what we're learning while we use it.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [9] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="what-changes">
           <div class="eyebrow">WHAT CHANGES</div>
           <h1 class="hero">
             <span class="headline-line">From generating solutions</span>
             <span class="headline-line accent">to engineering outcomes.</span>
           </h1>
           <p class="subtitle">Four shifts in how we work.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <!-- Each row: the "from" word gets struck, then the "to" word slides in -->
+            <div class="flips">
+              <div class="flip-row fragment" data-fragment-index="0">
+                <span class="from">Solutions</span><span class="arrow">&rarr;</span><span class="to">Problems</span>
+              </div>
+              <div class="flip-row fragment" data-fragment-index="1">
+                <span class="from">Code</span><span class="arrow">&rarr;</span><span class="to">System</span>
+              </div>
+              <div class="flip-row fragment" data-fragment-index="2">
+                <span class="from">Confidence</span><span class="arrow">&rarr;</span><span class="to">Evidence</span>
+              </div>
+              <div class="flip-row fragment" data-fragment-index="3">
+                <span class="from">Delegating</span><span class="arrow">&rarr;</span><span class="to">Developing</span>
+              </div>
+            </div>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -573,6 +1274,7 @@
             </p>
             <p>And I don't think we need an entirely new definition of software quality.</p>
             <p>But I do think we need to become more deliberate about a few things.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>First, we need to spend more energy understanding the problem before we start generating solutions.</p>
             <p>This is something we've always said is important.</p>
             <p>
@@ -593,6 +1295,7 @@
               But the important point is that we don't skip the thinking just because implementation has become
               easier.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Second, we need to evaluate changes at the system level, not just the code level.</p>
             <p>Our traditional code-quality practices remain important.</p>
             <p>
@@ -605,6 +1308,7 @@
               And I think AI can help us with that too, especially when we give it meaningful context about our
               architecture and constraints.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>Third, we need to get better at distinguishing evidence from confidence.</p>
             <p>A confident explanation is not proof.</p>
             <p>An AI-generated test suite is not automatically proof that we've tested the right behaviors.</p>
@@ -617,6 +1321,7 @@
               The important thing is knowing what we're actually trying to establish, and gathering evidence that
               supports it.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>And finally, we need to protect the development of engineering judgment.</p>
             <p>That applies to everyone, not just junior engineers.</p>
             <p>We should be able to explain why a solution was chosen.</p>
@@ -631,15 +1336,48 @@
               It requires us to be thoughtful about which responsibilities we're delegating and which
               responsibilities we're developing.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [10] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="the-answer">
           <div class="eyebrow">THE ANSWER</div>
           <h1 class="hero">
             <span class="headline-line">What makes</span>
             <span class="headline-line accent">a good engineer?</span>
           </h1>
           <p class="subtitle">The responsibility for the outcome remains ours.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <svg class="wheel" viewBox="0 0 360 360" aria-hidden="true">
+              <!-- Five traits around the ring -->
+              <g class="wheel-trait fragment" data-fragment-index="0">
+                <text x="180.0" y="59.0" class="verb">Understands</text>
+                <text x="180.0" y="77.0">the problem</text>
+              </g>
+              <g class="wheel-trait fragment" data-fragment-index="1">
+                <text x="312.2" y="140.5" class="verb">Recognizes</text>
+                <text x="312.2" y="158.5">constraints</text>
+              </g>
+              <g class="wheel-trait fragment" data-fragment-index="2">
+                <text x="249.4" y="272.5" class="verb">Weighs</text>
+                <text x="249.4" y="290.5">tradeoffs</text>
+              </g>
+              <g class="wheel-trait fragment" data-fragment-index="3">
+                <text x="110.6" y="272.5" class="verb">Cares</text>
+                <text x="110.6" y="290.5">after merge</text>
+              </g>
+              <g class="wheel-trait fragment" data-fragment-index="4">
+                <text x="47.8" y="140.5" class="verb">Builds for</text>
+                <text x="47.8" y="158.5">tomorrow</text>
+              </g>
+              <!-- Last step: the hub that holds them together -->
+              <g class="wheel-hub fragment" data-fragment-index="5">
+                <g class="wheel-spokes"><line x1="180.0" y1="122.0" x2="180.0" y2="94.0" pathLength="1" /><line x1="235.2" y1="162.1" x2="271.3" y2="150.3" pathLength="1" /><line x1="214.1" y1="226.9" x2="230.5" y2="249.6" pathLength="1" /><line x1="145.9" y1="226.9" x2="129.5" y2="249.6" pathLength="1" /><line x1="124.8" y1="162.1" x2="88.7" y2="150.3" pathLength="1" /></g>
+                <circle cx="180" cy="180" r="54" />
+                <text x="180" y="176">Owns the</text>
+                <text x="180" y="196">outcome</text>
+              </g>
+            </svg>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -652,32 +1390,70 @@
             <p>But I think there's something more fundamental underneath it.</p>
             <p>Think back to those two engineers. Same tools. Same AI. Same request.</p>
             <p>What separates them isn't the code they can produce. It's everything around the code.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>A good engineer understands the problem they're solving.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>They recognize the constraints of the system they're working in.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>
               They can evaluate tradeoffs, challenge assumptions, and recognize when a solution introduces more
               complexity than it removes.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>They care about what happens after the code is merged.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>
               They understand that software quality isn't just about whether an implementation works today, but
               whether the system can continue evolving tomorrow.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>And importantly, they take responsibility for the outcome.</p>
             <p>
               Whether the code was written by hand, generated by an AI agent, or produced through some combination of
               both.
             </p>
             <p>The responsibility doesn't disappear just because the implementation method changes.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [11] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
-        <section>
+        <section id="closing">
           <div class="eyebrow">CLOSING</div>
           <h1 class="hero">
-            <span class="headline-line">The code is the output.</span>
-            <span class="headline-line accent">The engineering is in the decisions.</span>
+            <span class="headline-line">Code is output.</span>
+            <span class="headline-line accent">Engineering is decisions.</span>
           </h1>
-          <p class="subtitle">Tools change how we write code. Judgment decides what we build.</p>
+          <p class="subtitle">Tools change how we write code.<br />Judgment decides what we build.</p>
+          <div class="shift-circle fragment" data-fragment-index="0">
+            <!-- A bar of our time: "writing code" shrinks, freed time fills with engineering -->
+            <svg class="time-bar" viewBox="0 0 360 360" aria-hidden="true">
+              <g class="time-code">
+                <rect x="78" y="58" width="40" height="244" rx="3" />
+                <text x="134" y="185.0">Writing code</text>
+              </g>
+              <!-- Shrinks on the same click that adds "Understanding problems" -->
+              <g class="time-shrink fragment" data-fragment-index="1"></g>
+              <g class="time-seg fragment" data-fragment-index="1">
+                <rect x="78" y="222.2" width="40" height="37.7" rx="3" style="fill-opacity: 0.30" />
+                <text x="134" y="246.0">Understanding problems</text>
+              </g>
+              <g class="time-seg fragment" data-fragment-index="2">
+                <rect x="78" y="181.5" width="40" height="37.7" rx="3" style="fill-opacity: 0.42" />
+                <text x="134" y="205.3">Designing systems</text>
+              </g>
+              <g class="time-seg fragment" data-fragment-index="3">
+                <rect x="78" y="140.8" width="40" height="37.7" rx="3" style="fill-opacity: 0.54" />
+                <text x="134" y="164.7">Improving reliability</text>
+              </g>
+              <g class="time-seg fragment" data-fragment-index="4">
+                <rect x="78" y="100.2" width="40" height="37.7" rx="3" style="fill-opacity: 0.66" />
+                <text x="134" y="124.0">Reducing complexity</text>
+              </g>
+              <g class="time-seg fragment" data-fragment-index="5">
+                <rect x="78" y="59.5" width="40" height="37.7" rx="3" style="fill-opacity: 0.78" />
+                <text x="134" y="83.3">Making better decisions</text>
+              </g>
+            </svg>
+          </div>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
@@ -686,14 +1462,20 @@
             <p>And I want to be clear: none of this is a warning against AI.</p>
             <p>I actually think this is a pretty exciting time to be an engineer.</p>
             <p>Because we're gaining tools that can remove enormous amounts of tedious work.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>
               And that creates an opportunity to spend more time on the parts of engineering that have always mattered
               but haven't always received enough attention.
             </p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Understanding problems.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>Designing systems.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>Improving reliability.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>Reducing unnecessary complexity.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>And making better decisions.</p>
             <p>But that opportunity isn't automatic.</p>
             <p>
@@ -706,7 +1488,7 @@
             <p>It's measured by the problems we solve, the decisions we make, and the systems we leave behind.</p>
             <p>The code is the output.</p>
             <p>The engineering is in the decisions.</p>
-            <p>[Pause.]</p>
+            <p>[Pause]</p>
             <p>Thank you.</p>
           </aside>
         </section>
