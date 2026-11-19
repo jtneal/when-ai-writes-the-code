@@ -318,6 +318,62 @@
       .system-map .sys-caption text.sys-caption-swap {
         fill: var(--warn);
       }
+      /* The Question: two engineers, same tools, different experience */
+      .duo {
+        bottom: 52px;
+        height: 160px;
+        overflow: visible;
+        position: absolute;
+        right: 0;
+        width: 420px;
+      }
+      .duo text {
+        text-anchor: middle;
+      }
+      /* Smaller callback version, aligned with the text column on later slides */
+      .duo.duo-side {
+        height: 114px;
+        left: 0;
+        right: auto;
+        width: 300px;
+      }
+      .duo .duo-person circle,
+      .duo .duo-person path {
+        fill: rgba(170, 183, 201, 0.07);
+        stroke: var(--muted);
+        stroke-width: 1.5;
+      }
+      .duo .duo-label {
+        fill: var(--accent);
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .duo .duo-links line {
+        stroke: var(--muted);
+        stroke-dasharray: 3 4;
+        stroke-opacity: 0.6;
+        stroke-width: 1.5;
+      }
+      .duo .duo-hub rect {
+        fill: rgba(155, 217, 231, 0.07);
+        stroke: var(--accent);
+        stroke-width: 1.5;
+      }
+      .duo .duo-hub .duo-hub-title {
+        fill: var(--accent);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .duo .duo-hub .duo-hub-sub {
+        fill: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+      .duo .duo-question {
+        fill: var(--warn);
+        font-size: 30px;
+        font-weight: 700;
+      }
       /* Code Quality: well-written code vs. the right solution */
       .venn {
         height: 100%;
@@ -347,6 +403,16 @@
       .venn .venn-right text {
         fill: var(--accent);
         font-size: 14px;
+      }
+      .venn .venn-wrong path {
+        fill: rgba(232, 150, 122, 0.16);
+        stroke: var(--warn);
+        stroke-dasharray: 4 4;
+        stroke-width: 1.5;
+      }
+      .venn .venn-wrong text {
+        fill: var(--warn);
+        font-size: 13px;
       }
       .venn .venn-both text {
         fill: var(--ink);
@@ -404,9 +470,11 @@
         transform: none;
       }
       .steps-track {
+        /* Optical centering: the list's right edge is ragged, so shift it right */
+        left: 20px;
         position: relative;
       }
-      /* Bracket that draws from step 1 down to step 6 */
+      /* Bracket that draws from the first step down to the last */
       .reveal .shift-circle .shortcut {
         border: 2px solid var(--accent);
         border-radius: 12px 0 0 12px;
@@ -437,6 +505,16 @@
       /* When the shortcut appears, the middle steps fall away */
       .reveal .shift-circle .steps-track:has(.shortcut.visible) li.skip.visible {
         opacity: 0.22;
+      }
+      /* Last beat: of everything skipped, understanding is the loss that matters */
+      .reveal .shift-circle .steps-track:has(.shortcut.visible) li.skip.visible:has(.lost-mark.visible) {
+        color: var(--warn);
+        opacity: 1;
+        transition: color 0.6s ease, opacity 0.6s ease;
+      }
+      .reveal .shift-circle .steps-track li:has(.lost-mark.visible) .lost-text {
+        text-decoration: line-through;
+        text-decoration-thickness: 1.5px;
       }
       /* What Changes: each shift flips from the old focus to the new one */
       .flip-row {
@@ -613,9 +691,8 @@
             </p>
             <p>
               We learn programming languages. We study design patterns. We learn how to write clean, maintainable code.
-              We get better at debugging, testing, and understanding increasingly complicated systems.
+              We get better at debugging, testing, and understanding increasingly complex systems.
             </p>
-            <p>Eventually, we become the people other engineers come to when they can't figure something out.</p>
             <p>
               Now, that's never been the whole story. Some of the best engineers I know are great because of how they
               mentor, communicate, and raise the level of the people around them.
@@ -624,7 +701,7 @@
             <p>And then along comes AI.</p>
             <p>
               Now I can describe a problem to an AI agent, give it access to a repository, and watch it produce an
-              implementation that might have taken me hours.
+              implementation that might have taken me hours, if not days.
             </p>
             <p>
               It can write unit tests. It can refactor code. It can explain unfamiliar parts of the system. It can
@@ -648,17 +725,50 @@
             <span class="headline-line accent">where does engineering value come from?</span>
           </h1>
           <p class="subtitle">Same tools. Same AI. Different experience.</p>
+          <svg class="duo fragment" data-fragment-index="0" viewBox="0 0 420 160" aria-hidden="true">
+            <!-- Step 4: both engineers wired to the same AI, tools and repo (drawn first so lines sit behind) -->
+            <g class="fragment" data-fragment-index="3">
+              <g class="duo-links">
+                <line x1="104" y1="66" x2="125" y2="66" />
+                <line x1="295" y1="66" x2="316" y2="66" />
+              </g>
+              <g class="duo-hub">
+                <rect x="125" y="40" width="170" height="52" rx="10" />
+                <text class="duo-hub-title" x="210" y="63">Same AI</text>
+                <text class="duo-hub-sub" x="210" y="81">TOOLS · REPO · REQUEST</text>
+              </g>
+            </g>
+            <!-- Step 1: two identical engineers -->
+            <g class="duo-person" transform="translate(70 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <g class="duo-person" transform="translate(350 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <!-- Steps 2 and 3: the only difference -->
+            <text class="duo-label fragment" data-fragment-index="1" x="70" y="126">6 months</text>
+            <text class="duo-label fragment" data-fragment-index="2" x="350" y="126">15 years</text>
+            <!-- Step 5: what makes this one's contribution more valuable? -->
+            <text class="duo-question fragment" data-fragment-index="4" x="392" y="44">?</text>
+          </svg>
           <div class="slide-footer">
             <span>WHEN AI WRITES THE CODE</span>
             <span>ENGINEERING · JUDGMENT · QUALITY</span>
           </div>
           <aside class="notes">
             <p>So let me make that question a little more concrete.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>Imagine two engineers.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>One is a relatively new engineer, maybe six months into their career.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
             <p>The other has fifteen years of experience.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
             <p>They both have access to the same AI models, the same tools, and the same repository.</p>
             <p>They receive the same feature request.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>What makes the experienced engineer's contribution more valuable?</p>
             <p>Is it that they know more syntax? Probably not.</p>
             <p>Is it that they can write a for-loop faster? Definitely not.</p>
@@ -744,7 +854,7 @@
             </p>
             <p>On the other hand, we're starting to encounter a strange problem.</p>
             <p>
-              It's becoming easier to produce code than it is to understand all the consequences of producing that
+              It's becoming easier to produce code, than it is to understand all the consequences, of producing that
               code.
             </p>
             <p>Think about how quickly an AI agent can generate a thousand lines of code.</p>
@@ -754,7 +864,7 @@
             <p>The dependencies.</p>
             <p>The unintended consequences.</p>
             <p>The ways the implementation might affect systems outside the immediate feature.</p>
-            <p>The generation might take minutes.</p>
+            <p>The code generation might take minutes.</p>
             <p>But understanding the system can still take hours.</p>
             <p>
               And if we're not careful, we'll start producing software faster than we can meaningfully
@@ -775,20 +885,25 @@
           <p class="subtitle">These are not necessarily the same thing.</p>
           <div class="shift-circle fragment" data-fragment-index="0">
             <svg class="venn" viewBox="0 0 360 360" aria-hidden="true">
-              <!-- Step 1: well-written code -->
+              <!-- Step 1: well-written code (label sits above so the crescent can be labeled later) -->
               <g class="venn-code">
                 <circle cx="130" cy="180" r="100" />
-                <text x="84" y="176">Well-written</text>
-                <text x="84" y="193">code</text>
+                <text x="110" y="64">Clean code</text>
               </g>
               <!-- Step 2: the right solution only partly overlaps it -->
               <g class="venn-right fragment" data-fragment-index="1">
                 <circle cx="230" cy="180" r="100" />
-                <text x="276" y="176">Right</text>
-                <text x="276" y="193">solution</text>
+                <text x="250" y="64">Right solution</text>
               </g>
-              <!-- Step 3: the overlap is good engineering -->
-              <g class="venn-both fragment" data-fragment-index="2">
+              <!-- Step 3: the left-only crescent is clean code solving the wrong problem -->
+              <g class="venn-wrong fragment" data-fragment-index="2">
+                <path d="M 180 93.4 A 100 100 0 1 0 180 266.6 A 100 100 0 0 1 180 93.4 Z" />
+                <text x="84" y="166">Clean code,</text>
+                <text x="84" y="183">wrong</text>
+                <text x="84" y="200">solution</text>
+              </g>
+              <!-- Step 4: the overlap is good engineering -->
+              <g class="venn-both fragment" data-fragment-index="3">
                 <text x="180" y="177">good</text>
                 <text x="180" y="193">engineering</text>
               </g>
@@ -803,10 +918,10 @@
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>Readable code. Maintainable code. Good abstractions. Appropriate testing. Consistent patterns.</p>
             <p>I believe those things matter.</p>
-            <p>And AI hasn't changed that.</p>
-            <p>But AI has made me think more carefully about something.</p>
+            <p>And AI hasn't changed that. If anything, AI is getting very good at it.</p>
+            <p>But it has made me think more carefully about something.</p>
+            <p>Well-written code and the right solution are not necessarily the same thing.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
-            <p>Good code and good engineering are not necessarily the same thing.</p>
             <p>Let me give you an example.</p>
             <p>Imagine we have a feature request to add some new functionality to an existing application.</p>
             <p>We give an AI agent the request.</p>
@@ -818,7 +933,7 @@
             <p>The tests pass.</p>
             <p>The pull request looks great.</p>
             <p>By most traditional code-quality measurements, it's good code.</p>
-            <p>But what if the feature shouldn't have been implemented that way at all?</p>
+            <p>But what if the feature shouldn't have been built that way at all?</p>
             <p>What if the business requirement was misunderstood?</p>
             <p>
               What if we've introduced a second source of truth for data that's already managed somewhere
@@ -833,9 +948,12 @@
               problem?
             </p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
-            <p>The AI might have written excellent code.</p>
-            <p>But we still made a poor engineering decision.</p>
-            <p>And to be fair, this isn't a new problem.</p>
+            <p>Then the code is excellent. And the solution is wrong.</p>
+            <p>
+              And notice that a typical code review wouldn't catch it. The code is fine. The problem is the decision
+              behind it.
+            </p>
+            <p>To be fair, this isn't a new problem.</p>
             <p>Human engineers have been making these mistakes forever.</p>
             <p>We've all seen beautifully written code that probably shouldn't exist.</p>
             <p>We've all seen complicated abstractions built to solve relatively simple problems.</p>
@@ -844,7 +962,13 @@
               request itself was based on a misunderstanding.
             </p>
             <p>AI didn't create these problems.</p>
-            <p>AI just lets us make them faster, and potentially at a much larger scale.</p>
+            <p>AI just lets us make them faster, and at a much larger scale.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
+            <p>Good engineering has always lived here, in the overlap: well-written code that solves the right problem.</p>
+            <p>
+              And as AI takes more of the well-written code off our plate, more of our value comes from knowing what the
+              right solution is.
+            </p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'slide', args: [4] }), '*'); return false;">[Next]</a></p>
           </aside>
         </section>
@@ -936,22 +1060,48 @@
             <span class="headline-line accent">knowing the solution.</span>
           </h1>
           <p class="subtitle">It's recognizing consequences before they happen.</p>
-          <div class="shift-circle consequences fragment" data-fragment-index="0">
+          <!-- The two engineers return: present from the start, smaller, tucked under the subtitle -->
+          <svg class="duo duo-side" viewBox="0 0 420 160" aria-hidden="true">
+            <g class="fragment" data-fragment-index="1">
+              <g class="duo-links">
+                <line x1="104" y1="66" x2="125" y2="66" />
+                <line x1="295" y1="66" x2="316" y2="66" />
+              </g>
+              <g class="duo-hub">
+                <rect x="125" y="40" width="170" height="52" rx="10" />
+                <text class="duo-hub-title" x="210" y="63">Same AI</text>
+                <text class="duo-hub-sub" x="210" y="81">TOOLS · REPO · REQUEST</text>
+              </g>
+            </g>
+            <g class="duo-person" transform="translate(70 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <g class="duo-person" transform="translate(350 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <g class="fragment" data-fragment-index="0">
+              <text class="duo-label" x="70" y="126">6 months</text>
+              <text class="duo-label" x="350" y="126">15 years</text>
+            </g>
+          </svg>
+          <div class="shift-circle consequences fragment" data-fragment-index="2">
             <div class="consequence-grid">
               <div class="consequence-row consequence-head">
                 <span>Seemed fine</span><span></span><span>Later</span>
               </div>
               <div class="consequence-rule"></div>
-              <div class="consequence-row fragment" data-fragment-index="0">
+              <div class="consequence-row fragment" data-fragment-index="2">
                 <span class="cause">New abstraction</span><span class="arrow">&rarr;</span><span class="effect">Unmaintainable</span>
               </div>
-              <div class="consequence-row fragment" data-fragment-index="1">
+              <div class="consequence-row fragment" data-fragment-index="3">
                 <span class="cause">Service boundary</span><span class="arrow">&rarr;</span><span class="effect">Wrong place</span>
               </div>
-              <div class="consequence-row fragment" data-fragment-index="2">
+              <div class="consequence-row fragment" data-fragment-index="4">
                 <span class="cause">Optimization</span><span class="arrow">&rarr;</span><span class="effect">Wrong problem</span>
               </div>
-              <div class="consequence-row fragment" data-fragment-index="3">
+              <div class="consequence-row fragment" data-fragment-index="5">
                 <span class="cause">&ldquo;Temporary&rdquo; fix</span><span class="arrow">&rarr;</span><span class="effect">5 years later</span>
               </div>
             </div>
@@ -962,7 +1112,9 @@
           </div>
           <aside class="notes">
             <p>And that brings us back to those two engineers.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
             <p>The relatively new engineer and the engineer with fifteen years of experience.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>Same request. Same AI. Same codebase.</p>
             <p>
               I want to be careful here, because I don't think experience automatically makes someone a better
@@ -980,17 +1132,18 @@
               How many times have you implemented something that seemed like a perfectly reasonable solution, only to
               discover some unexpected consequence later?
             </p>
-            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
-            <p>Maybe you introduced an abstraction that became impossible to maintain.</p>
-            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
-            <p>Maybe you designed a service boundary that turned out to be in the wrong place.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
-            <p>Maybe you optimized something that wasn't actually causing a performance problem.</p>
+            <p>Maybe you introduced an abstraction that became impossible to maintain.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
+            <p>Maybe you designed a service boundary that turned out to be in the wrong place.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
+            <p>Maybe you optimized something that wasn't actually causing a performance problem.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>
               Maybe you implemented a workaround that was supposed to be temporary, and five years later it's still
               there.
             </p>
+            <p>Yep, I'm guilty of that one!</p>
             <p>Over time, those experiences change the way you approach problems.</p>
             <p>You start recognizing situations before they become problems.</p>
             <p>You start asking questions that you wouldn't have known to ask earlier in your career.</p>
@@ -1047,7 +1200,7 @@
             <p>AI can make generating a new implementation incredibly easy.</p>
             <p>Need a new service? Generate one.</p>
             <p>Need a new abstraction? Generate one.</p>
-            <p>Need another layer to handle some special case? Generate one.</p>
+            <p>Need another layer to handle some special use-case? Generate one.</p>
             <p>
               The implementation cost becomes so low that we're potentially removing one of the natural barriers
               that used to make us reconsider complexity.
@@ -1180,15 +1333,16 @@
           <div class="shift-circle steps fragment" data-fragment-index="0">
             <div class="steps-track">
             <ol>
-              <li class="fragment" data-fragment-index="0">Struggle with a problem</li>
+              <li class="fragment" data-fragment-index="0">Start with a requirement</li>
               <li class="fragment skip" data-fragment-index="1">Try something</li>
               <li class="fragment skip" data-fragment-index="2">It doesn't work</li>
               <li class="fragment skip" data-fragment-index="3">Debug it</li>
               <li class="fragment skip" data-fragment-index="4">Learn why you were wrong</li>
-              <li class="fragment" data-fragment-index="5">Build understanding</li>
+              <li class="fragment skip" data-fragment-index="5"><span class="lost-text">Build understanding</span><span class="lost-mark fragment" data-fragment-index="8"></span></li>
+              <li class="fragment" data-fragment-index="6">Ship a working solution</li>
             </ol>
-            <!-- Final step: the AI shortcut from problem straight to "understanding" -->
-            <div class="shortcut fragment" data-fragment-index="6"></div>
+            <!-- The AI shortcut: requirement straight to a working solution, skipping everything between -->
+            <div class="shortcut fragment" data-fragment-index="7"></div>
             </div>
           </div>
           <div class="slide-footer">
@@ -1199,7 +1353,7 @@
             <p>And this matters even more when we think about how engineers grow.</p>
             <p>Traditionally, a lot of learning happened through implementation.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
-            <p>You struggled with a problem.</p>
+            <p>You started with a requirement.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
             <p>You tried something.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
@@ -1209,8 +1363,10 @@
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>You learned why your original assumption was wrong.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
-            <p>And eventually, you developed an understanding that you didn't have before.</p>
+            <p>You developed an understanding that you didn't have before.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [6] }), '*'); return false;">[Advance]</a></p>
+            <p>And eventually, you shipped a working solution.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [7] }), '*'); return false;">[Advance]</a></p>
             <p>
               Now, an AI agent can potentially get you from the requirement to a working solution without that struggle.
             </p>
@@ -1224,7 +1380,9 @@
             <p>
               There's no prize for spending six hours solving a problem that could have been solved in ten minutes.
             </p>
-            <p>But getting the answer and understanding the answer are different accomplishments.</p>
+            <p>But notice what else gets skipped along the way.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [8] }), '*'); return false;">[Advance]</a></p>
+            <p>Getting the answer and understanding the answer are different accomplishments.</p>
             <p>If we're using AI to accelerate our work, that's a tremendous advantage.</p>
             <p>If we're using it to avoid developing an understanding of our systems, that's a risk.</p>
             <p>And I think this is going to become an increasingly important question for engineering organizations.</p>
@@ -1313,7 +1471,7 @@
             <p>A confident explanation is not proof.</p>
             <p>An AI-generated test suite is not automatically proof that we've tested the right behaviors.</p>
             <p>And a successful build doesn't tell us whether we implemented the correct requirement.</p>
-            <p>We need validation that is appropriate for the risks of the change.</p>
+            <p>We need validation that matches how risky the change is.</p>
             <p>Sometimes that means more comprehensive tests.</p>
             <p>Sometimes it means checking an architectural decision.</p>
             <p>Sometimes it means confirming an assumption with another team or a business stakeholder.</p>
@@ -1346,31 +1504,55 @@
             <span class="headline-line accent">a good engineer?</span>
           </h1>
           <p class="subtitle">The responsibility for the outcome remains ours.</p>
-          <div class="shift-circle fragment" data-fragment-index="0">
+          <!-- The two engineers return one last time: both labeled at once, then what they share -->
+          <svg class="duo duo-side fragment" data-fragment-index="0" viewBox="0 0 420 160" aria-hidden="true">
+            <g class="fragment" data-fragment-index="1">
+              <g class="duo-links">
+                <line x1="104" y1="66" x2="125" y2="66" />
+                <line x1="295" y1="66" x2="316" y2="66" />
+              </g>
+              <g class="duo-hub">
+                <rect x="125" y="40" width="170" height="52" rx="10" />
+                <text class="duo-hub-title" x="210" y="63">Same AI</text>
+                <text class="duo-hub-sub" x="210" y="81">TOOLS · REPO · REQUEST</text>
+              </g>
+            </g>
+            <g class="duo-person" transform="translate(70 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <g class="duo-person" transform="translate(350 0)">
+              <circle cx="0" cy="34" r="16" />
+              <path d="M -30 98 Q -30 62 0 62 Q 30 62 30 98 Z" />
+            </g>
+            <text class="duo-label" x="70" y="126">6 months</text>
+            <text class="duo-label" x="350" y="126">15 years</text>
+          </svg>
+          <div class="shift-circle fragment" data-fragment-index="2">
             <svg class="wheel" viewBox="0 0 360 360" aria-hidden="true">
               <!-- Five traits around the ring -->
-              <g class="wheel-trait fragment" data-fragment-index="0">
+              <g class="wheel-trait fragment" data-fragment-index="2">
                 <text x="180.0" y="59.0" class="verb">Understands</text>
                 <text x="180.0" y="77.0">the problem</text>
               </g>
-              <g class="wheel-trait fragment" data-fragment-index="1">
+              <g class="wheel-trait fragment" data-fragment-index="3">
                 <text x="312.2" y="140.5" class="verb">Recognizes</text>
                 <text x="312.2" y="158.5">constraints</text>
               </g>
-              <g class="wheel-trait fragment" data-fragment-index="2">
+              <g class="wheel-trait fragment" data-fragment-index="4">
                 <text x="249.4" y="272.5" class="verb">Weighs</text>
                 <text x="249.4" y="290.5">tradeoffs</text>
               </g>
-              <g class="wheel-trait fragment" data-fragment-index="3">
+              <g class="wheel-trait fragment" data-fragment-index="5">
                 <text x="110.6" y="272.5" class="verb">Cares</text>
                 <text x="110.6" y="290.5">after merge</text>
               </g>
-              <g class="wheel-trait fragment" data-fragment-index="4">
+              <g class="wheel-trait fragment" data-fragment-index="6">
                 <text x="47.8" y="140.5" class="verb">Builds for</text>
                 <text x="47.8" y="158.5">tomorrow</text>
               </g>
               <!-- Last step: the hub that holds them together -->
-              <g class="wheel-hub fragment" data-fragment-index="5">
+              <g class="wheel-hub fragment" data-fragment-index="7">
                 <g class="wheel-spokes"><line x1="180.0" y1="122.0" x2="180.0" y2="94.0" pathLength="1" /><line x1="235.2" y1="162.1" x2="271.3" y2="150.3" pathLength="1" /><line x1="214.1" y1="226.9" x2="230.5" y2="249.6" pathLength="1" /><line x1="145.9" y1="226.9" x2="129.5" y2="249.6" pathLength="1" /><line x1="124.8" y1="162.1" x2="88.7" y2="150.3" pathLength="1" /></g>
                 <circle cx="180" cy="180" r="54" />
                 <text x="180" y="176">Owns the</text>
@@ -1388,26 +1570,29 @@
             <p>I don't think the answer is simply that good engineers know how to use AI effectively.</p>
             <p>That's certainly becoming an important skill.</p>
             <p>But I think there's something more fundamental underneath it.</p>
-            <p>Think back to those two engineers. Same tools. Same AI. Same request.</p>
-            <p>What separates them isn't the code they can produce. It's everything around the code.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [0] }), '*'); return false;">[Advance]</a></p>
-            <p>A good engineer understands the problem they're solving.</p>
+            <p>Think back to those two engineers.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [1] }), '*'); return false;">[Advance]</a></p>
-            <p>They recognize the constraints of the system they're working in.</p>
+            <p>Same tools. Same AI. Same request.</p>
+            <p>What separates them isn't the code they can produce. It's everything around the code.</p>
             <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [2] }), '*'); return false;">[Advance]</a></p>
+            <p>A good engineer understands the problem they're solving.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
+            <p>They recognize the constraints of the system they're working in.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
             <p>
               They can evaluate tradeoffs, challenge assumptions, and recognize when a solution introduces more
               complexity than it removes.
             </p>
-            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [3] }), '*'); return false;">[Advance]</a></p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
             <p>They care about what happens after the code is merged.</p>
-            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [4] }), '*'); return false;">[Advance]</a></p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [6] }), '*'); return false;">[Advance]</a></p>
             <p>
               They understand that software quality isn't just about whether an implementation works today, but
               whether the system can continue evolving tomorrow.
             </p>
-            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [5] }), '*'); return false;">[Advance]</a></p>
-            <p>And importantly, they take responsibility for the outcome.</p>
+            <p><a href="#" onclick="window.opener.postMessage(JSON.stringify({ method: 'navigateFragment', args: [7] }), '*'); return false;">[Advance]</a></p>
+            <p>And most importantly, they take responsibility for the outcome.</p>
             <p>
               Whether the code was written by hand, generated by an AI agent, or produced through some combination of
               both.
